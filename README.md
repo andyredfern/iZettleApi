@@ -60,6 +60,24 @@ $purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
 $library = $purchaseClient->getPurchaseHistory();
 ```
 
+### Make call with an admin created Assertion
+For a single merchant account access, create a token in the Inetgrations > Api section and use that as the supplied Assertion to access permitted end points.
+```php
+use GuzzleHttp\Client;
+use LauLamanApps\IzettleApi\GuzzleIzettleClient;
+use LauLamanApps\IzettleApi\IzettleClientFactory;
+
+$iZettleClient = new GuzzleIzettleClient(new Client(), 'clientId','clientSecret');
+
+$accessToken = $iZettleClient->getAccessTokenFromApiTokenAssertion('SECRET_API_KEY');
+
+$purchaseClient = IzettleClientFactory::getPurchaseClient($iZettleClient);
+
+$library = $purchaseClient->getPurchaseHistory();
+```
+
+
+
 
 Credits
 -------
