@@ -23,6 +23,7 @@ final class PurchaseClient
     private $client;
     private $purchaseHistoryBuilder;
     private $purchaseBuilder;
+    private $parameters = [];
 
     public function __construct(
         IzettleClientInterface $client,
@@ -34,10 +35,39 @@ final class PurchaseClient
         $this->purchaseBuilder = $purchaseBuilder;
     }
 
+    public function setParameter($key, $value)
+    {
+        $this->parameters[$key] = $value;
+        return $this;
+    }
+
+    public function limit(int $limit)
+    {
+        $this->setParameter('limit', $limit);
+        return $this;
+    }
+
+    public function descending()
+    {
+        $this->setParameter('descending', 'true');
+        return $this;
+    }
+    
+    public function ascending()
+    {
+        $this->setParameter('descending', 'false');
+        return $this;
+    }
+
+    public function getPurchasesUrl()
+    {
+        return self::GET_PURCHASES . '?' . http_build_query($this->parameters);
+    }
+
+
     public function getPurchaseHistory(): PurchaseHistory
     {
-        $json = $this->client->getJson($this->client->get(self::GET_PURCHASES));
-
+        $json = $this->client->getJson($this->client->get($this->getPurchasesUrl()));
         return $this->purchaseHistoryBuilder->buildFromJson($json);
     }
 
