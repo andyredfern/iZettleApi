@@ -7,12 +7,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "LauLamanApps\\IzettleApi\\": ["src/"]
+      "Andyredfern\\IzettleApi\\": ["src/"]
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "LauLamanApps\\IzettleApi\\Tests\\": ["tests/"]
+      "Andyredfern\\IzettleApi\\Tests\\": ["tests/"]
     }
   },
   "require": {
