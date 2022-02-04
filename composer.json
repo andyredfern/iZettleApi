@@ -1,19 +1,21 @@
 {
-  "name": "andyredfern/izettleapi",
-  "repositories": [
-        {
-            "url": "https://github.com/andyredfern/iZettleApi",
-            "type": "git"
-        }
+  "name": "laulamanapps/izettle-api",
+  "description": "Izettle API PHP Client",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Laurens Laman",
+      "email": "laurens.laman@llaman.nl"
+    }
   ],
   "autoload": {
     "psr-4": {
-      "Andyredfern\\IzettleApi\\": ["src/"]
+      "LauLamanApps\\IzettleApi\\": ["src/"]
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Andyredfern\\IzettleApi\\Tests\\": ["tests/"]
+      "LauLamanApps\\IzettleApi\\Tests\\": ["tests/"]
     }
   },
   "require": {
