@@ -6,6 +6,7 @@ namespace LauLamanApps\IzettleApi\API\Purchase\Payment;
 
 use DateTime;
 use LauLamanApps\IzettleApi\API\Purchase\AbstractPayment;
+use LauLamanApps\IzettleApi\Client\Purchase\Exception\PaymentTypeNotConfiguredException;
 use Money\Money;
 use Ramsey\Uuid\UuidInterface;
 
@@ -14,19 +15,22 @@ final class InvoicePayment extends AbstractPayment
     private $orderUuid;
     private $invoiceNr;
     private $dueDate;
+    private $paymentType;
 
     public function __construct(
         UuidInterface $uuid,
         Money $amount,
         UuidInterface $orderUuid,
         string $invoiceNr,
-        DateTime $dueDate
+        DateTime $dueDate,
+        String $PaymentType
     ) {
-        parent::__construct($uuid, $amount);
+        parent::__construct($uuid, $amount, $PaymentType);
 
         $this->orderUuid = $orderUuid;
         $this->invoiceNr = $invoiceNr;
         $this->dueDate = $dueDate;
+        $this->paymentType = $PaymentType;
     }
 
     public function getOrderUuid(): UuidInterface
@@ -42,5 +46,10 @@ final class InvoicePayment extends AbstractPayment
     public function getDueDate(): DateTime
     {
         return $this->dueDate;
+    }
+
+    public function getPaymentType(): string
+    {
+        return $this->paymentType;
     }
 }

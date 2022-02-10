@@ -32,7 +32,6 @@ final class PaymentBuilder implements PaymentBuilderInterface
         foreach ($payments as $payment) {
             $data[] = $this->build($payment, $currency);
         }
-
         return $data;
     }
 
@@ -68,7 +67,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
             $this->getFromKey('applicationName', $payment['attributes']),
             $this->getFromKey('applicationIdentifier', $payment['attributes']),
             $this->getFromKey('terminalVerificationResults', $payment['attributes']),
-            (int) $this->getFromKey('nrOfInstallments', $payment['attributes'])
+            (int) $this->getFromKey('nrOfInstallments', $payment['attributes']),
+            self::CARD
         );
     }
 
@@ -77,7 +77,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
         return new CashPayment(
             Uuid::fromString($payment['uuid']),
             new Money($payment['amount'], $currency),
-            new Money($payment['attributes']['handedAmount'], $currency)
+            new Money($payment['attributes']['handedAmount'], $currency),
+            self::CASH
         );
     }
 
@@ -88,7 +89,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
             new Money($payment['amount'], $currency),
             Uuid::fromString($payment['attributes']['orderUUID']),
             $payment['attributes']['invoiceNr'],
-            new DateTime($payment['attributes']['dueDate'])
+            new DateTime($payment['attributes']['dueDate']),
+            self::INVOICE
         );
     }
 
@@ -96,7 +98,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
     {
         return new MobilePayment(
             Uuid::fromString($payment['uuid']),
-            new Money($payment['amount'], $currency)
+            new Money($payment['amount'], $currency),
+            self::MOBILE
         );
     }
 
@@ -104,7 +107,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
     {
         return new SwishPayment(
             Uuid::fromString($payment['uuid']),
-            new Money($payment['amount'], $currency)
+            new Money($payment['amount'], $currency),
+            self::SWISH
         );
     }
 
@@ -112,7 +116,8 @@ final class PaymentBuilder implements PaymentBuilderInterface
     {
         return new VippsPayment(
             Uuid::fromString($payment['uuid']),
-            new Money($payment['amount'], $currency)
+            new Money($payment['amount'], $currency),
+            self::VIPPS
         );
     }
 

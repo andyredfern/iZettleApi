@@ -11,11 +11,14 @@ use Ramsey\Uuid\UuidInterface;
 final class CashPayment extends AbstractPayment
 {
     private $handedAmount;
+    private $paymentType;
 
-    public function __construct(UuidInterface $uuid, Money $amount, Money $handedAmount)
+    public function __construct(UuidInterface $uuid, Money $amount, Money $handedAmount, string $paymentType)
     {
         parent::__construct($uuid, $amount);
         $this->handedAmount = $handedAmount;
+        $this->paymentType = $paymentType;
+
     }
 
     public function getHandedAmount(): Money
@@ -26,5 +29,10 @@ final class CashPayment extends AbstractPayment
     public function getChangeAmount(): Money
     {
         return $this->handedAmount->subtract($this->getAmount());
+    }
+
+    public function getPaymentType(): string
+    {
+        return $this->paymentType;
     }
 }

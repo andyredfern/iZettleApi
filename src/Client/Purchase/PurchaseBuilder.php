@@ -42,7 +42,7 @@ final class PurchaseBuilder implements PurchaseBuilderInterface
         foreach ($purchases as $purchase) {
             $data[] = $this->build($purchase);
         }
-
+        var_dump($data);
         return $data;
     }
 

@@ -18,6 +18,7 @@ final class CardPayment extends AbstractPayment
     private $applicationIdentifier;
     private $terminalVerificationResults;
     private $nrOfInstallments;
+    private $paymentType;
 
     public function __construct(
         UuidInterface $uuid,
@@ -29,7 +30,8 @@ final class CardPayment extends AbstractPayment
         ?string $applicationName = null,
         ?string $applicationIdentifier = null,
         ?string $terminalVerificationResults = null,
-        ?int $nrOfInstallments = null
+        ?int $nrOfInstallments = null,
+        string $paymentType
     ) {
         parent::__construct($uuid, $amount);
         $this->referenceNumber = $referenceNumber;
@@ -40,6 +42,7 @@ final class CardPayment extends AbstractPayment
         $this->applicationIdentifier = $applicationIdentifier;
         $this->terminalVerificationResults = $terminalVerificationResults;
         $this->nrOfInstallments = $nrOfInstallments;
+        $this->paymentType = $paymentType;
     }
 
     public function getReferenceNumber(): string
@@ -80,5 +83,10 @@ final class CardPayment extends AbstractPayment
     public function getNrOfInstallments(): int
     {
         return $this->nrOfInstallments;
+    }
+
+    public function getPaymentType(): string
+    {
+        return $this->paymentType;
     }
 }
